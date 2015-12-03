@@ -1,0 +1,24 @@
+#ifndef DEF_ENTRY
+#define DEF_ENTRY
+
+#include <iostream>
+
+class Product
+{
+	protected:
+		float m_price;
+		float m_quantity;
+		std::string m_unit;
+		std::string m_description;
+
+	public:
+		Product(float price, float quantity, std::string unit, std::string description);
+		//get-set
+		float getPrice();
+		float getQuantity();
+		std::string getUnit();
+		std::string getDescription();
+};
+
+#endif
+
