@@ -14,6 +14,10 @@ class User
 	
 	public:
 		User(std::string firstName, std::string lastName, Address* address);
+		//get-set
+		std::string getFirstName();
+		std::string getLastName();
+		Address* getAddress();
 };
 
 #endif

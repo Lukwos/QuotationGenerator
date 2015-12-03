@@ -5,7 +5,7 @@
 
 class User;
 class Client;
-class Product;
+class Row;
 
 class Quotation
 {
@@ -13,17 +13,19 @@ class Quotation
 		User* m_user;
 		Client* m_client;
 		float m_tax;
-		std::map<int, Product*> m_products;
+		std::map<int, Row*> m_rows;
 	
 	public:
 		Quotation(User* user, Client* client, float tax);
 		//transform map
-		void addProduct(int id, Product* product);
-		void removeProduct(int id);
+		//TODO Need Optimisation
+		void addRow(int id, Row* row);
+		void removeRow(int id);
+		void swapRows(int id1, int id2);
 		//get-set
+		Row* getRow(int id);
 		int getMaxId();
 		float getTax();
-		Product* getProduct(int id);
 };
 
 #endif

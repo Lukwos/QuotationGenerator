@@ -1,4 +1,4 @@
-#include <iostream> //debug
+#include <iostream> //DEBUG
 #include "Quotation.hpp"
 	
 Quotation::Quotation(User* user, Client* client, float tax)
@@ -6,24 +6,49 @@ Quotation::Quotation(User* user, Client* client, float tax)
 {
 }
 
-void Quotation::addProduct(int id, Product* product)
+void Quotation::addRow(int id, Row* row)
 {
-	m_products[id] = product;
+	if(m_rows.find(id) == m_rows.end())
+	{
+		m_rows[id] = row;
+	}
+	else
+	{
+		m_rows[m_rows.size()] = row;
+		for(int i=(int)m_rows.size()-1; i>id; i--)
+		{
+			swapRows(i, i-1);
+		}
+	}
 }
 
-void Quotation::removeProduct(int id)
+void Quotation::removeRow(int id)
 {
-	m_products.erase(id);
+	//move the row in the top
+	std::cerr << "id : " << id << std::endl;
+	for(int i=id; i<(int)m_rows.size()-1; i++)
+	{
+		swapRows(i, i+1);
+	}
+	m_rows.erase(m_rows.size()-1);
 }
 
-Product* Quotation::getProduct(int id)
+void Quotation::swapRows(int id1, int id2)
 {
-	return m_products.at(id);
+	std::cerr << id1 << " -- " << id2 << std::endl;
+	Row* tmp = m_rows.at(id1);
+	m_rows[id1] = m_rows.at(id2);
+	m_rows[id2] = tmp;
+}
+
+Row* Quotation::getRow(int id)
+{
+	return m_rows.at(id);
 }
 
 int Quotation::getMaxId()
 {
-	return m_products.size();
+	return m_rows.size();
 }
 
 float Quotation::getTax()

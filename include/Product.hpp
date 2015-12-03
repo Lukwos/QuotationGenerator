@@ -1,9 +1,11 @@
 #ifndef DEF_ENTRY
 #define DEF_ENTRY
 
-#include <iostream>
+#include <string>
 
-class Product
+#include "Row.hpp"
+
+class Product : public Row
 {
 	protected:
 		float m_price;

@@ -1,7 +1,7 @@
 #include "Product.hpp"
 
 Product::Product(float price, float quantity, std::string unit, std::string description)
-	: m_price(price), m_quantity(quantity), m_unit(unit), m_description(description)
+	: Row(), m_price(price), m_quantity(quantity), m_unit(unit), m_description(description)
 {
 }
 

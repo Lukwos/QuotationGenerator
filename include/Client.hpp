@@ -15,7 +15,11 @@ class Client
 	
 	public:
 		Client(std::string firstName, std::string lastName, Address* homeAddress, Address* workAdress);
-
+		//get-set
+		std::string getFirstName();
+		std::string getLastName();
+		Address* getHomeAddress();
+		Address* getWorkAddress();
 };
 
 #endif
