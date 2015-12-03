@@ -1,4 +1,3 @@
-#include <iostream> //DEBUG
 #include "Quotation.hpp"
 	
 Quotation::Quotation(User* user, Client* client, float tax)
@@ -25,7 +24,6 @@ void Quotation::addRow(int id, Row* row)
 void Quotation::removeRow(int id)
 {
 	//move the row in the top
-	std::cerr << "id : " << id << std::endl;
 	for(int i=id; i<(int)m_rows.size()-1; i++)
 	{
 		swapRows(i, i+1);
@@ -35,10 +33,19 @@ void Quotation::removeRow(int id)
 
 void Quotation::swapRows(int id1, int id2)
 {
-	std::cerr << id1 << " -- " << id2 << std::endl;
 	Row* tmp = m_rows.at(id1);
 	m_rows[id1] = m_rows.at(id2);
 	m_rows[id2] = tmp;
+}
+
+User* Quotation::getUser()
+{
+	return m_user;
+}
+
+Client* Quotation::getClient()
+{
+	return m_client;
 }
 
 Row* Quotation::getRow(int id)

@@ -11,7 +11,7 @@ class Address
 		int m_postalCode;
 		std::string m_city;
 
-	protected:
+	public:
 		Address(int number, std::string street, int postalCode, std::string city);
 		//get-set
 		int getNumber();

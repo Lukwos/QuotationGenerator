@@ -23,6 +23,8 @@ class Quotation
 		void removeRow(int id);
 		void swapRows(int id1, int id2);
 		//get-set
+		User* getUser();
+		Client* getClient();
 		Row* getRow(int id);
 		int getMaxId();
 		float getTax();
