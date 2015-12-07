@@ -5,6 +5,7 @@
 #include "Product.hpp"
 #include "Separator.hpp"
 #include "LatexCreator.hpp"
+#include "History.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -22,18 +23,17 @@ int main(int argc, char* argv[])
 	}
 	
 	//init
+	History* history = new History("History");
 	Address* addr = new Address(9, "impasse du pont des noelles", 22600, "Loudeac");
 	User* user = new User("Prenom", "Nom", addr);
 	Client* client = new Client("Client", "NomClient", addr, addr);
 	Quotation* q = new Quotation(user, client, 19.6f);
-	
-	q->addRow(0, new Product(25.0f, 10.0f, "m", "description"));
-	q->addRow(1, new Product(10.0f, 9.5f, "U", "une petite description"));
-	q->addRow(2, new Separator("Ceci est un separateur"));
-	q->addRow(3, new Product(4.5f, 18.4f, "m2", "la toto mobile"));
-	q->addRow(4, new Product(1.0f, 12.34f, "ml", "brique de 5"));
-	//q->removeRow(2);
-
+	history->loadHistory();
+	history->saveHistory();
+	for(int i=0; i<history->getProductNumber(); i++)
+	{
+		q->addRow(i, history->getProduct(i));
+	}
 	LatexCreator* lc = new LatexCreator(std::string(argv[1])+".tex");
 	lc->writeQuotation(q);
 	lc->compile();

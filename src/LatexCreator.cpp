@@ -7,6 +7,7 @@
 #include "Separator.hpp"
 
 //Idee : Avoir un fichier ".tex" juste a parser et a rajouter des valeurs a l'interieur -> plus facile a manipuler
+//TODO : Comment marche minipage
 
 LatexCreator::LatexCreator(std::string path)
 	: m_path(path)
@@ -20,17 +21,28 @@ void LatexCreator::writeQuotation(Quotation* quotation)
 	
 	file.precision(2);
 	//header
-	file << "\\documentclass[a4paper,11pt]{report}\n";
+	file << "\\documentclass[a4paper,12pt]{article}\n";
 	file << "\n";
 	file << "\\usepackage[utf8]{inputenc}\n";
 	file << "\\usepackage{textcomp}\n";
+	file << "\\usepackage{geometry}\n";
+	file << "\\usepackage{array}\n";
+	file << "\n";
+	//mise en page
+	file << "\\pagestyle{empty}\n";
+	file << "\\geometry{hmargin=20pt,vmargin=50pt}\n";
+	file << "\\newcolumntype{R}[1]{>{\\raggedleft\\arraybackslash}m{#1}}";
 	file << "\n";
 	file << "\\begin{document}\n";
 	//user
 	User* user = quotation->getUser();
 	Address* uAddress = user->getAddress();
-	file << "\\begin{minipage}{0.45\\textwidth}\n";
+	file << "\\begin{minipage}[t]{0.4\\textwidth}\n";
+	file << "\\center\n";
+	file << "\\large\n";
 	file << user->getFirstName() << " " << user->getLastName() << "\\\\\n";
+	file << "\n";
+	file << "\\normalsize\n";
 	file << uAddress->getNumber() << " " << uAddress->getStreet() << "\\\\\n";
 	file << uAddress->getPostalCode() << " " << uAddress->getCity() << "\\\\\n";
 	file << "\\end{minipage}\n";
@@ -39,17 +51,22 @@ void LatexCreator::writeQuotation(Quotation* quotation)
 	Client* client = quotation->getClient();
 	Address* hAddress = client->getHomeAddress();
 	Address* wAddress = client->getWorkAddress();
-	file << "\\begin{minipage}{0.45\\textwidth}\n";
+	file << "\\begin{minipage}[t]{0.5\\textwidth}\n";
+	file << "\\center\n";
+	file << "\\large\n";
 	file << client->getFirstName() << " " << client->getLastName() << "\\\\\n";
+	file << "\n";
+	file << "\\normalsize\n";
 	file << hAddress->getNumber() << " " << hAddress->getStreet() << "\\\\\n";
 	file << hAddress->getPostalCode() << " " << hAddress->getCity() << "\\\\\n";
 	file << "Lieu des travaux :\\\\\n";
 	file << wAddress->getNumber() << " " << wAddress->getStreet() << "\\\\\n";
 	file << wAddress->getPostalCode() << " " << wAddress->getCity() << "\\\\\n";
 	file << "\\end{minipage}\n";
+	file << "\\vspace{45pt}\n";
 	//table
-	file << "\\\\\\\\\n"; // temporaire(ou pas)
-	file << "\\begin{tabular}{|l|c|c|c|c|}\n";
+	file << "\n";
+	file << "\\begin{tabular}{|p{200pt}|p{50pt}|p{20pt}|R{70pt}|R{70pt}|}\n";
 	file << "\\hline\n";
 	file << "Description & \\multicolumn{2}{|c|}{Quantité} & Prix Unitaire & Montant\\\\\n";
 	file << "\\hline\n";

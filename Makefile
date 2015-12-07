@@ -29,7 +29,8 @@ $(TARGET) : $(OBJ)
 clean :
 		@echo Cleaning...
 			rm -f $(OBJ) $(TARGET) src/*~ include/*~ *~
+			rm -f test.*
 
 run :
-		optirun ./$(TARGET)
+		./$(TARGET)
 
