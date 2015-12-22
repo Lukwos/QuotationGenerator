@@ -27,17 +27,19 @@ void LatexCreator::writeQuotation(Quotation* quotation)
 	file << "\\usepackage{textcomp}\n";
 	file << "\\usepackage{geometry}\n";
 	file << "\\usepackage{array}\n";
+	file << "\\usepackage{graphicx}\n";
+	file << "\\usepackage{xcolor}\n";
 	file << "\n";
 	//mise en page
 	file << "\\pagestyle{empty}\n";
-	file << "\\geometry{hmargin=20pt,vmargin=50pt}\n";
+	file << "\\geometry{left=20pt,top=50pt}\n";
 	file << "\\newcolumntype{R}[1]{>{\\raggedleft\\arraybackslash}m{#1}}";
 	file << "\n";
 	file << "\\begin{document}\n";
 	//user
 	User* user = quotation->getUser();
 	Address* uAddress = user->getAddress();
-	file << "\\begin{minipage}[t]{0.4\\textwidth}\n";
+	file << "\\begin{minipage}[t]{0.5\\textwidth}\n";
 	file << "\\center\n";
 	file << "\\large\n";
 	file << user->getFirstName() << " " << user->getLastName() << "\\\\\n";
@@ -64,11 +66,13 @@ void LatexCreator::writeQuotation(Quotation* quotation)
 	file << wAddress->getPostalCode() << " " << wAddress->getCity() << "\\\\\n";
 	file << "\\end{minipage}\n";
 	file << "\\vspace{45pt}\n";
+	file << "\n";
+	file << "\\center{Devis n° " << std::setfill('0') << std::setw(4) << (quotation->getId()) << "}\n";
 	//table
 	file << "\n";
-	file << "\\begin{tabular}{|p{200pt}|p{50pt}|p{20pt}|R{70pt}|R{70pt}|}\n";
+	file << "\\begin{tabular}{|p{270pt}|p{50pt}|p{20pt}|R{70pt}|R{70pt}|}\n";
 	file << "\\hline\n";
-	file << "Description & \\multicolumn{2}{|c|}{Quantité} & Prix Unitaire & Montant\\\\\n";
+	file << "Description & \\multicolumn{2}{c|}{Quantité} & Prix Unitaire & Montant\\\\\n";
 	file << "\\hline\n";
 	float total = 0;
 	for(int i=0; i<quotation->getMaxId(); i++)
@@ -88,6 +92,7 @@ void LatexCreator::writeQuotation(Quotation* quotation)
 		{
 			file << "\\bf " << separator->getTitle() << " & & & & \\\\\n";
 		}
+		file << " & & & & \\\\\n";
 		//file << "\\hline\n";
 	}
 	float tax = total*quotation->getTax()/100.0f;

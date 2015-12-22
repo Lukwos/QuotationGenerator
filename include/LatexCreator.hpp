@@ -2,6 +2,7 @@
 #define DEF_LATEXCREATOR
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string.h>
 

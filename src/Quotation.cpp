@@ -1,7 +1,7 @@
 #include "Quotation.hpp"
 	
-Quotation::Quotation(User* user, Client* client, float tax)
-	: m_user(user), m_client(client), m_tax(tax)
+Quotation::Quotation(User* user, Client* client, float tax, int id)
+	: m_user(user), m_client(client), m_tax(tax), m_id(id)
 {
 }
 
@@ -61,4 +61,9 @@ int Quotation::getMaxId()
 float Quotation::getTax()
 {
 	return m_tax;
+}
+
+int Quotation::getId()
+{
+	return m_id;
 }

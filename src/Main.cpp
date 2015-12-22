@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	Address* addr = new Address(9, "impasse du pont des noelles", 22600, "Loudeac");
 	User* user = new User("Prenom", "Nom", addr);
 	Client* client = new Client("Client", "NomClient", addr, addr);
-	Quotation* q = new Quotation(user, client, 19.6f);
+	Quotation* q = new Quotation(user, client, 19.6f, 29);
 	history->loadHistory();
 	history->saveHistory();
 	for(int i=0; i<history->getProductNumber(); i++)
